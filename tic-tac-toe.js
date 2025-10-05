@@ -18,6 +18,28 @@ document.addEventListener('DOMContentLoaded', () => { //for when the page loads
         });
     });
 
+//Exercise 4 - Check for the winner and update the status
+
+const status = document.getElementById('status');
+let gameOver = false;
+
+const winCombos = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]; //win patterns for row, column and diagonals
+
+function testWinner(){
+    for (let combo of winCombos){
+        const [num1,num2,num3] = combo;
+        if (
+            game[num1] && game[num1] === game[num2] && game[num1] === game[num3] //tess values against win combinations
+        ) {
+            const winner = game[num1];
+            status.textContent = `Congratulations! ${winner} is the Winner!`; //shows the winner
+            status.classList.add('you-won');
+            gameOver = true;
+            return true;
+        }
+    }
+    return false;
+}
     
     
 //Exercise 2 - Add an X or O to a square when clicked   
@@ -33,15 +55,18 @@ document.addEventListener('DOMContentLoaded', () => { //for when the page loads
                 square.classList.add(currentPlayer);
                 game[index] = currentPlayer;
 
-                //switches between players
-                if(currentPlayer === 'X'){
-                    currentPlayer = 'O';
-                }else {
-                    currentPlayer = 'X';
+                //switches between players once there is no winner
+                if (!testWinner()){
+                    if(currentPlayer === 'X'){
+                        currentPlayer = 'O';
+                    }else {
+                        currentPlayer = 'X';
+                    }
                 }
             }
         })
     })
+
 
 
 
