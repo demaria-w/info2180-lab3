@@ -50,7 +50,7 @@ function testWinner(){
 
     boardSquares.forEach((square,index) => {
         square.addEventListener('click',() => {
-            if (!square.textContent) { //prevents the box from being overwritten
+            if (!square.textContent && !gameOver) { //prevents the box from being overwritten and that the game isn't over
                 square.textContent = currentPlayer;
                 square.classList.add(currentPlayer);
                 game[index] = currentPlayer;
@@ -67,8 +67,21 @@ function testWinner(){
         })
     })
 
+//Exercise 5 - Restart the game
+let newGamebtn = document.querySelector('.btn'); //initializes the button
 
+newGamebtn.addEventListener('click', () => {
+        boardSquares.forEach(square =>{
+            square.textContent = ''; //resets text content to nothing
+            square.classList.remove('X','O'); 
+        });
 
+        game = Array(9).fill(null);
+        currentPlayer = 'X'; //resets first player to X
+        gameOver = false;
+        status.classList.remove('you-won');
+        status.textContent = "Move your mouse over a square and click to play an X or an O."; //puts back default status message
+});
 
 });
 
