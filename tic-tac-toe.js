@@ -50,7 +50,7 @@ function testWinner(){
 
     boardSquares.forEach((square,index) => {
         square.addEventListener('click',() => {
-            if (!square.textContent && !gameOver) { //prevents the box from being overwritten and that the game isn't over
+            if (!square.textContent && !gameOver) { //prevents the box from being overwritten (Exercise 6) and that the game isn't over
                 square.textContent = currentPlayer;
                 square.classList.add(currentPlayer);
                 game[index] = currentPlayer;
